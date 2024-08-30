@@ -1,6 +1,7 @@
-"use client";
+// "use client";
 
-import styles from "./productcard.module.css";
+// import styles from "./productcard.module.css";
+import InteractiveCard from "./InteractiveCard";
 import Image from "next/image";
 
 export default function ProductCard({
@@ -10,8 +11,11 @@ export default function ProductCard({
   carName: string;
   imgSrc: string;
 }) {
+  function onCarSelected() {
+    alert("You select " + carName + ".");
+  }
   return (
-    <div className="w-1/5 h-[300px] rounded-lg">
+    <InteractiveCard contentname={carName}>
       <div className="w-full h-[70%] relative rounded-t-lg">
         <Image
           className="object-cover rounded-t-lg"
@@ -24,6 +28,6 @@ export default function ProductCard({
       <div className="w-full h-[70% p-[10px]">
         <p>{carName}</p>
       </div>
-    </div>
+    </InteractiveCard>
   );
 }
