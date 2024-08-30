@@ -25,7 +25,7 @@ export default function ProductCard({
           objectFit="cover"
         />
       </div>
-      <div className="w-full h-[70% p-[10px]">
+      <div className="w-full h-[70%] p-[10px]">
         <p>{carName}</p>
       </div>
     </InteractiveCard>
