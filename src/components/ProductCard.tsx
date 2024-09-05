@@ -3,13 +3,16 @@
 // import styles from "./productcard.module.css";
 import InteractiveCard from "./InteractiveCard";
 import Image from "next/image";
+// import { Button } from "@mui/material";
 
 export default function ProductCard({
   carName,
   imgSrc,
+  onCompare,
 }: {
   carName: string;
   imgSrc: string;
+  onCompare: Function;
 }) {
   function onCarSelected() {
     alert("You select " + carName + ".");
@@ -25,9 +28,18 @@ export default function ProductCard({
           objectFit="cover"
         />
       </div>
-      <div className="w-full h-[70%] p-[10px]">
+      <div className="w-full h-[15%] p-[10px]">
         <p>{carName}</p>
       </div>
+      <button
+        className="block text-sm h-[10%] rounded-md bg-sky-600 hover:bg-indigo-600 mx-2 px-1 py-1 text-white shadow-sm"
+        onClick={(e) => {
+          e.stopPropagation();
+          onCompare(carName);
+        }}
+      >
+        Compare
+      </button>
     </InteractiveCard>
   );
 }
