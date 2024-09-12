@@ -2,6 +2,8 @@
 
 import ProductCard from "./ProductCard";
 import { useReducer } from "react";
+import { Button } from "@mui/material";
+import Link from "next/link";
 
 export default function CarPanel() {
   //  Reducer Function
@@ -26,36 +28,37 @@ export default function CarPanel() {
     compareReducer,
     new Set<string>()
   );
+  // const orderReducer = (order: number, amount: number) => {
+  //   let netOrder = order + amount;
+  //   return netOrder;
+  // };
+  // const [order, dispatchOrder] = useReducer(orderReducer, 0);
+
+  /* Mock Data */
+  const mockCarRepo = [
+    { cid: "001", name: "Honda Civic", image: "/img/civic.jpg" },
+    { cid: "002", name: "Honda Accord", image: "/img/accord.jpg" },
+    { cid: "003", name: "Toyota Fortuner", image: "/img/fortuner.jpg" },
+    { cid: "004", name: "Tesla Model3", image: "/img/tesla.jpg" },
+  ];
+
   return (
-    <div className="m-[20px] flex flex-row flex-wrap justify-around content-around">
-      <ProductCard
-        carName="Honda Civic"
-        imgSrc="/img/civic.jpg"
-        onCompare={(car: string) =>
-          dispatchCompare({ type: "add", carName: car })
-        }
-      />
-      <ProductCard
-        carName="Honda Accord"
-        imgSrc="/img/accord.jpg"
-        onCompare={(car: string) =>
-          dispatchCompare({ type: "add", carName: car })
-        }
-      />
-      <ProductCard
-        carName="Toyota Fortuner"
-        imgSrc="/img/fortuner.jpg"
-        onCompare={(car: string) =>
-          dispatchCompare({ type: "add", carName: car })
-        }
-      />
-      <ProductCard
-        carName="Tesla Model3"
-        imgSrc="/img/tesla.jpg"
-        onCompare={(car: string) =>
-          dispatchCompare({ type: "add", carName: car })
-        }
-      />
+    <div className="m-[20px] flex flex-row flex-wrap justify-around content-around p-[10px] flex-wrap">
+      {mockCarRepo.map((carItem) => (
+        <Link href={`/car/${carItem.cid}`} className="w-1/5">
+          <ProductCard
+            carName={carItem.name}
+            imgSrc={carItem.image}
+            onCompare={(car: string) =>
+              dispatchCompare({ type: "add", carName: car })
+            }
+          />
+        </Link>
+      ))}
+      {/* <div>order = {order}</div>
+      <Button variant="contained" onClick={() => dispatchOrder(15)}>
+        Click To add 15 to order
+      </Button> */}
       <div className="w-full text-xl font-medium mt-[16px]">
         Compare List: {compareList.size}
       </div>

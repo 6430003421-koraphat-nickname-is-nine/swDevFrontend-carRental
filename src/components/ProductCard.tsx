@@ -35,6 +35,7 @@ export default function ProductCard({
         className="block text-sm h-[10%] rounded-md bg-sky-600 hover:bg-indigo-600 mx-2 px-1 py-1 text-white shadow-sm"
         onClick={(e) => {
           e.stopPropagation();
+          e.preventDefault();
           onCompare(carName);
         }}
       >
