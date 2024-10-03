@@ -1,13 +1,22 @@
 "use client";
 
 import ProductCard from "./ProductCard";
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import { Button } from "@mui/material";
 import Link from "next/link";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
+import getCars from "@/libs/getCars";
 
 export default function CarPanel() {
-  let count = 0;
+  const [carResponse, setCarResponse] = useState(null);
+
+  useEffect(() => {
+    const fetchaData = async () => {
+      const cars = await getCars();
+      setCarResponse(cars);
+    };
+    fetchaData();
+  }, []);
 
   const countRef = useRef(0);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -34,27 +43,26 @@ export default function CarPanel() {
     compareReducer,
     new Set<string>()
   );
-  // const orderReducer = (order: number, amount: number) => {
-  //   let netOrder = order + amount;
-  //   return netOrder;
-  // };
-  // const [order, dispatchOrder] = useReducer(orderReducer, 0);
 
   /* Mock Data */
-  const mockCarRepo = [
-    { cid: "001", name: "Honda Civic", image: "/img/civic.jpg" },
-    { cid: "002", name: "Honda Accord", image: "/img/accord.jpg" },
-    { cid: "003", name: "Toyota Fortuner", image: "/img/fortuner.jpg" },
-    { cid: "004", name: "Tesla Model3", image: "/img/tesla.jpg" },
-  ];
+  // const mockCarRepo = [
+  //   { cid: "001", name: "Honda Civic", image: "/img/civic.jpg" },
+  //   { cid: "002", name: "Honda Accord", image: "/img/accord.jpg" },
+  //   { cid: "003", name: "Toyota Fortuner", image: "/img/fortuner.jpg" },
+  //   { cid: "004", name: "Tesla Model3", image: "/img/tesla.jpg" },
+  // ];
+
+  if (!carResponse) return <p>Car Panel is Loading ...</p>;
+
+  let carResponseData = carResponse.data;
 
   return (
-    <div className="m-[20px] flex flex-row flex-wrap justify-around content-around p-[10px] flex-wrap">
-      {mockCarRepo.map((carItem) => (
-        <Link href={`/car/${carItem.cid}`} className="w-1/5">
+    <div className="m-[20px] flex flex-row justify-around content-around p-[10px] flex-wrap">
+      {carResponseData.map((carItem: any) => (
+        <Link href={`/car/${carItem.id}`} className="w-1/5" key={carItem.id}>
           <ProductCard
-            carName={carItem.name}
-            imgSrc={carItem.image}
+            carName={carItem.model}
+            imgSrc={carItem.picture}
             onCompare={(car: string) =>
               dispatchCompare({ type: "add", carName: car })
             }

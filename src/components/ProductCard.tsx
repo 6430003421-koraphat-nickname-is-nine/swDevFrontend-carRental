@@ -12,7 +12,7 @@ export default function ProductCard({
 }: {
   carName: string;
   imgSrc: string;
-  onCompare: Function;
+  onCompare?: Function;
 }) {
   function onCarSelected() {
     alert("You select " + carName + ".");
@@ -31,16 +31,20 @@ export default function ProductCard({
       <div className="w-full h-[15%] p-[10px]">
         <p>{carName}</p>
       </div>
-      <button
-        className="block text-sm h-[10%] rounded-md bg-sky-600 hover:bg-indigo-600 mx-2 px-1 py-1 text-white shadow-sm"
-        onClick={(e) => {
-          e.stopPropagation();
-          e.preventDefault();
-          onCompare(carName);
-        }}
-      >
-        Compare
-      </button>
+      {onCompare ? (
+        <button
+          className="block text-sm h-[10%] rounded-md bg-sky-600 hover:bg-indigo-600 mx-2 px-1 py-1 text-white shadow-sm"
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            onCompare(carName);
+          }}
+        >
+          Compare
+        </button>
+      ) : (
+        ""
+      )}
     </InteractiveCard>
   );
 }
