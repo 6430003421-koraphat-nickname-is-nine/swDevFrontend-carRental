@@ -14,10 +14,10 @@ export default function VlogPlayer({
   useEffect(() => {
     // alert("wigth is " + vdoRef.current?.videoWidth);
     if (isPlaying) {
-      alert("Play VDO");
+      // alert("Play VDO");
       vdoRef.current?.play();
     } else {
-      alert("Pause VDO");
+      // alert("Pause VDO");
       vdoRef.current?.pause();
     }
   }, [isPlaying]);
