@@ -1,5 +1,6 @@
 import Image from "next/image";
 import getCar from "@/libs/getCar";
+import Link from "next/link";
 
 export default async function CarDetailPage({
   params,
@@ -41,6 +42,13 @@ export default async function CarDetailPage({
             <div>
               Daily Rental Rate: {carDetailData.dayRate} (insurance included)
             </div>
+            <Link
+              href={`/reservations?id=${params.cid}&model=${carDetailData.model}`}
+            >
+              <button className="block rounded-md bg-sky-600 hover:bg-indigo-600 px-3 py-1 text-white shadow-sm">
+                Make Reservation
+              </button>
+            </Link>
           </div>
         </div>
       </div>
