@@ -9,6 +9,8 @@ import { AppDispatch } from "@/redux/store";
 import { addReservation } from "@/redux/features/cartSlice";
 import { ReservationItem } from "../../../interfaces";
 
+import Link from "next/link";
+
 export default function Reservations() {
   const urlParams = useSearchParams();
   const cid = urlParams.get("id");
@@ -74,6 +76,12 @@ export default function Reservations() {
       >
         Reserve this Car
       </button>
+
+      <Link href="reservations/manage">
+        <button className="block rounded-md bg-sky-600 hover:bg-indigo-600 px-3 py-2 shadow-sm text-white">
+          Go to manage reservation
+        </button>
+      </Link>
     </main>
   );
 }

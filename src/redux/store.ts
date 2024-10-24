@@ -1,9 +1,58 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import cartSlice from "./features/cartSlice";
-import { TypedUseSelectorHook, useSelector, UseSelector } from "react-redux";
+import { TypedUseSelectorHook, useSelector } from "react-redux";
+
+import {
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
+import createWebStorage from "redux-persist/es/storage/createWebStorage";
+import { WebStorage } from "redux-persist";
+
+function createPersistStorage(): WebStorage {
+  const isServer = typeof window === "undefined";
+  if (isServer) {
+    return {
+      getItem() {
+        return Promise.resolve(null);
+      },
+      setItem() {
+        return Promise.resolve();
+      },
+      removeItem() {
+        return Promise.resolve();
+      },
+    };
+  }
+  return createWebStorage("local");
+}
+
+const storage = createPersistStorage();
+
+const PersistConfig = {
+  key: "rootPersist",
+  storage, // Use the storage module from redux-persist
+};
+
+const rootReducer = combineReducers({
+  cartSlice,
+});
+
+const reduxPersistReducer = persistReducer(PersistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: { cartSlice },
+  reducer: reduxPersistReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
