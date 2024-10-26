@@ -2,7 +2,7 @@
 
 import { useAppSelector, AppDispatch } from "@/redux/store";
 import { removeReservation } from "@/redux/features/cartSlice";
-import { useDispatch, UseDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 export default function ReservationCart() {
   const carItems = useAppSelector((state) => state.cartSlice.carItems);
