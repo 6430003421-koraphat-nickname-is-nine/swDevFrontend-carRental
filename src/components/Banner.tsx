@@ -33,7 +33,8 @@ export default function Banner() {
         alt="cover"
         fill={true}
         priority
-        objectFit="cover"
+        // objectFit="cover"
+        className="object-cover"
       />
       <div className={styles.bannerText}>
         <h1 className="text-4xl font-medium">Your Travel Partner</h1>
