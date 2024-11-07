@@ -22,9 +22,9 @@ export default async function Car() {
       >
         <CarCatalog carJson={cars} />
       </Suspense>
-      {/* <hr className="my-10" />
+      <hr className="my-10" />
       <h1 className="text-xl font-medium">Try Client-Side Car Panel</h1>
-      <CarPanel /> */}
+      <CarPanel />
     </main>
   );
 }
